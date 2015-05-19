@@ -1,0 +1,12 @@
+html, body { background:#F2EEEA; }
+body { padding-top:50px; font-size:13px; }
+
+.feed { min-height:100px; margin-bottom:25px; }
+
+h3 a { text-decoration:none; color:#919191; }
+h3 a:hover { text-decoration:none; color:#919191; }
+
+article { width:100%; white-space:nowrap; overflow:hidden; text-overflow: ellipsis; }
+article a { text-decoration:none; color:#e24b37; color:#333333; }
+article a:visited { text-decoration:none; color:#cecece; }
+article a:hover { text-decoration:underline; color:#666666; }

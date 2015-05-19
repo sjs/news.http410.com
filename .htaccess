@@ -1,0 +1,10 @@
+<Directory .git>
+    order allow,deny
+    deny from all
+</Directory>
+
+RewriteEngine On 
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php
