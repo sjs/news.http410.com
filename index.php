@@ -2,11 +2,13 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-error_reporting(0);
+//error_reporting(0);
 
 require_once('lib/glue.php');
 require_once('lib/Savant3-3.0.1/Savant3.php');
-
+require_once('lib/twitteroauth/autoload.php');
+use Abraham\TwitterOAuth\TwitterOAuth;
+require_once('secrets.php');
 
 $urls = array(
     '/$'                        => 'index',
@@ -78,7 +80,23 @@ class feed {
             header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' );
             header( 'Content-type: application/json' );
             echo $output;
-        
+
+            if($matches['feed'] == 'dn-front') {
+
+                $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, USER_KEY, USER_SECRET);
+                $feed_data = json_decode($output);
+                foreach($feed_data->channel->item as $item) {
+
+                    if(!filter_var(trim($item->description), FILTER_VALIDATE_URL) === false) {
+                        $connection->post('statuses/update',  array('status' => $item->title.' - '.trim($item->description).' (Discuss @ '.$item->link.')'));
+                    } else {
+                        $connection->post('statuses/update',  array('status' => $item->title.' (Discuss @ '.$item->link.')'));
+                    }
+
+                }
+
+            }        
+
         }
 
 
