@@ -49,7 +49,7 @@ class feed {
             $cache_file = dirname(__FILE__).'/cache/'.$name.'.json';
             $modified = filemtime($cache_file);
             $now = time();
-            $interval = 10; // five minutes
+            $interval = 300; // five minutes
 
             if ( !$modified || ( ( $now - $modified ) > $interval ) ) {
 
